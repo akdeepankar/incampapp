@@ -34,10 +34,10 @@ class _MyHomePageState extends State<MyHomePage> {
 
   static final List<Widget> _widgetOptions = <Widget>[
     const Home(),
+    const Moodspace(),
     const Ecospace(),
     const Litpicks(),
     const Foodspace(),
-    const Moodspace()
   ];
 
   void _onItemTapped(int index) {
