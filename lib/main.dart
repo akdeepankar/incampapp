@@ -88,6 +88,10 @@ class _MyHomePageState extends State<MyHomePage> {
                     label: 'Explore',
                   ),
                   BottomNavigationBarItem(
+                    icon: Icon(Icons.earbuds),
+                    label: 'Wise Owl',
+                  ),
+                  BottomNavigationBarItem(
                     icon: Icon(Icons.energy_savings_leaf),
                     label: 'EcoSpace',
                   ),
@@ -98,10 +102,6 @@ class _MyHomePageState extends State<MyHomePage> {
                   BottomNavigationBarItem(
                     icon: Icon(Icons.fastfood),
                     label: 'BF',
-                  ),
-                  BottomNavigationBarItem(
-                    icon: Icon(Icons.mood),
-                    label: 'Mood',
                   ),
                 ],
                 currentIndex: _selectedIndex,
