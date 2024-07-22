@@ -9,7 +9,7 @@ class Book extends StatefulWidget {
 
 class _BookState extends State<Book> {
   String _responseText = 'Press the button to get Recommendations.';
-  final String apiKey = 'AIzaSyCA25KPArcjrC0AbT8n8SweiV5ktE_ta0s'; // Replace with your actual API key
+  final String apiKey = 'AIzaSyCA25KPArcjrC0AbT8n8SweiV5ktE_ta0s';
   bool _isLoading = false;
 
   final List<Map<String, dynamic>> mcqQuestions = [
@@ -20,12 +20,20 @@ class _BookState extends State<Book> {
     },
     {
       'question': 'Which academic field interests you the most?',
-      'options': ['History and Politics', 'Sci and Tech', 'Literature and Arts'],
+      'options': [
+        'History and Politics',
+        'Sci and Tech',
+        'Literature and Arts'
+      ],
       'selectedAnswer': 'History and Politics',
     },
     {
       'question': 'What type of writing style do you prefer?',
-      'options': ['Formal and Academic', 'Informal and Conversational', 'Poetic and Descriptive'],
+      'options': [
+        'Formal and Academic',
+        'Informal and Conversational',
+        'Poetic and Descriptive'
+      ],
       'selectedAnswer': 'Formal and Academic',
     },
     {
@@ -55,15 +63,12 @@ class _BookState extends State<Book> {
     try {
       final model = GenerativeModel(model: 'gemini-1.5-flash', apiKey: apiKey);
 
-      // Construct the prompt string
       String prompt = 'Suggest 5 Books Names using this preferences:\n';
       for (var question in mcqQuestions) {
         prompt += '${question["question"]}: ${question["selectedAnswer"]}\n';
       }
 
-      final content = [
-        Content.text(prompt)
-      ];
+      final content = [Content.text(prompt)];
 
       final response = await model.generateContent(content);
       setState(() {
@@ -80,31 +85,35 @@ class _BookState extends State<Book> {
     }
   }
 
-  Widget _buildOption(String question, List<String> options, String selectedAnswer, void Function(String) onChanged) {
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      Text(
-        question,
-        style: TextStyle(
-          fontSize: 25,
-          fontWeight: FontWeight.bold,
-          color: Colors.grey,
+  Widget _buildOption(String question, List<String> options,
+      String selectedAnswer, void Function(String) onChanged) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          question,
+          style: TextStyle(
+            fontSize: 25,
+            fontWeight: FontWeight.bold,
+            color: Colors.grey,
+          ),
         ),
-      ),
-      SizedBox(height: 10),
-      SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        child: Row(
-          children: options.map((option) => _buildOptionButton(option, selectedAnswer, onChanged)).toList(),
+        SizedBox(height: 10),
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            children: options
+                .map((option) =>
+                    _buildOptionButton(option, selectedAnswer, onChanged))
+                .toList(),
+          ),
         ),
-      ),
-    ],
-  );
-}
+      ],
+    );
+  }
 
-
-  Widget _buildOptionButton(String option, String selectedAnswer, void Function(String) onChanged) {
+  Widget _buildOptionButton(
+      String option, String selectedAnswer, void Function(String) onChanged) {
     bool isSelected = option == selectedAnswer;
     return GestureDetector(
       onTap: () {
@@ -147,11 +156,14 @@ class _BookState extends State<Book> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text('Recommendations', style: TextStyle(
-                fontSize: 25,
-                fontWeight: FontWeight.bold,
-                color: Colors.black,
-              ),),
+                  Text(
+                    'Recommendations',
+                    style: TextStyle(
+                      fontSize: 25,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
+                  ),
                   SizedBox(height: 10),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -162,7 +174,8 @@ class _BookState extends State<Book> {
                       return Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          _buildOption(question, options, selectedAnswer, (selectedOption) {
+                          _buildOption(question, options, selectedAnswer,
+                              (selectedOption) {
                             setState(() {
                               mcq['selectedAnswer'] = selectedOption;
                             });
@@ -175,13 +188,17 @@ class _BookState extends State<Book> {
                   SizedBox(height: 20),
                   ElevatedButton(
                     onPressed: _isLoading ? null : _generateStory,
-                    child: _isLoading ? Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: CircularProgressIndicator(color: Colors.blue,),
-                    ) : Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Icon(Icons.play_arrow, color: Colors.white),
-                    ),
+                    child: _isLoading
+                        ? Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: CircularProgressIndicator(
+                              color: Colors.blue,
+                            ),
+                          )
+                        : Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Icon(Icons.play_arrow, color: Colors.white),
+                          ),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.blue,
                       shape: RoundedRectangleBorder(

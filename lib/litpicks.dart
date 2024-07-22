@@ -9,7 +9,7 @@ class Litpicks extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 2, // Number of tabs
+      length: 2,
       child: Scaffold(
         appBar: AppBar(
           title: PreferredSize(
@@ -33,7 +33,7 @@ class Litpicks extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 10.0),
                         child: Container(
-                          width: 150, // Adjusted width of the tab container
+                          width: 150,
                           decoration: BoxDecoration(
                             color: Colors.grey[200],
                             borderRadius: BorderRadius.circular(10),
@@ -41,8 +41,7 @@ class Litpicks extends StatelessWidget {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Icon(Icons.energy_savings_leaf,
-                                  color: Colors.black),
+                              Icon(Icons.book, color: Colors.black),
                               SizedBox(width: 8),
                               Text('Recommend',
                                   style: TextStyle(color: Colors.black)),
@@ -53,7 +52,7 @@ class Litpicks extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 6.0),
                         child: Container(
-                          width: 150, // Adjusted width of the tab container
+                          width: 150,
                           decoration: BoxDecoration(
                             color: Colors.grey[200],
                             borderRadius: BorderRadius.circular(10),
@@ -61,7 +60,7 @@ class Litpicks extends StatelessWidget {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Icon(Icons.assessment, color: Colors.black),
+                              Icon(Icons.abc_outlined, color: Colors.black),
                               SizedBox(width: 8),
                               Text('Research',
                                   style: TextStyle(color: Colors.black)),
@@ -71,7 +70,7 @@ class Litpicks extends StatelessWidget {
                       ),
                     ],
                   ),
-                  SizedBox(height: 10), // Add padding below the line
+                  SizedBox(height: 10),
                 ],
               ),
             ),

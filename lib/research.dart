@@ -10,7 +10,7 @@ class Research extends StatefulWidget {
 
 class _ResearchState extends State<Research> {
   String _responseText = 'Research Paper';
-  final String apiKey = 'AIzaSyCA25KPArcjrC0AbT8n8SweiV5ktE_ta0s'; // Replace with your API key
+  final String apiKey = 'AIzaSyCA25KPArcjrC0AbT8n8SweiV5ktE_ta0s';
   String _selectedOption1 = 'Any';
   bool _isLoading = false;
   final TextEditingController _questionController = TextEditingController();
@@ -29,7 +29,10 @@ class _ResearchState extends State<Research> {
 
     try {
       final model = GenerativeModel(model: 'gemini-1.5-flash', apiKey: apiKey);
-      final content = [Content.text('Display Topics with Clickable Links for Research paper of type $_selectedOption1 on ${_questionController.text}')];
+      final content = [
+        Content.text(
+            'Display Topics with Clickable Links for Research paper of type $_selectedOption1 on ${_questionController.text}')
+      ];
       final response = await model.generateContent(content);
       setState(() {
         _responseText = response.text!;
@@ -51,7 +54,8 @@ class _ResearchState extends State<Research> {
     super.dispose();
   }
 
-  Widget _buildOption(String option, String label, String selectedOption, void Function()? onTap) {
+  Widget _buildOption(String option, String label, String selectedOption,
+      void Function()? onTap) {
     bool isSelected = option == selectedOption;
     return GestureDetector(
       onTap: onTap,
@@ -90,11 +94,13 @@ class _ResearchState extends State<Research> {
   Widget _buildClickableText(String text) {
     final urlPattern = RegExp(r'https?:\/\/[^\s]+');
     final parts = text.split(urlPattern);
-    final matches = urlPattern.allMatches(text).map((match) => match.group(0)!).toList();
+    final matches =
+        urlPattern.allMatches(text).map((match) => match.group(0)!).toList();
 
     List<TextSpan> spans = [];
     for (int i = 0; i < parts.length; i++) {
-      spans.add(TextSpan(text: parts[i], style: TextStyle(color: Colors.black)));
+      spans
+          .add(TextSpan(text: parts[i], style: TextStyle(color: Colors.black)));
       if (i < matches.length) {
         spans.add(TextSpan(
           text: matches[i],
@@ -143,7 +149,8 @@ class _ResearchState extends State<Research> {
                       labelStyle: TextStyle(color: Colors.blue),
                       filled: true,
                       fillColor: Colors.grey[200],
-                      contentPadding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+                      contentPadding: EdgeInsets.symmetric(
+                          horizontal: 16.0, vertical: 12.0),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10.0),
                         borderSide: BorderSide(color: Colors.blue),
@@ -155,7 +162,8 @@ class _ResearchState extends State<Research> {
                     ),
                   ),
                   SizedBox(height: 10),
-                  Text('Paper Type', style: TextStyle(fontStyle: FontStyle.italic)),
+                  Text('Paper Type',
+                      style: TextStyle(fontStyle: FontStyle.italic)),
                   SizedBox(height: 10),
                   Container(
                     height: 40,
@@ -167,27 +175,34 @@ class _ResearchState extends State<Research> {
                             _selectedOption1 = 'Any';
                           });
                         }),
-                        _buildOption('Argumentative', 'Argumentative', _selectedOption1, () {
+                        _buildOption(
+                            'Argumentative', 'Argumentative', _selectedOption1,
+                            () {
                           setState(() {
                             _selectedOption1 = 'Argumentative';
                           });
                         }),
-                        _buildOption('Analytical', 'Analytical', _selectedOption1, () {
+                        _buildOption(
+                            'Analytical', 'Analytical', _selectedOption1, () {
                           setState(() {
                             _selectedOption1 = 'Analytical';
                           });
                         }),
-                        _buildOption('Experimental', 'Experimental', _selectedOption1, () {
+                        _buildOption(
+                            'Experimental', 'Experimental', _selectedOption1,
+                            () {
                           setState(() {
                             _selectedOption1 = 'Experimental';
                           });
                         }),
-                        _buildOption('Case Study', 'Case Study', _selectedOption1, () {
+                        _buildOption(
+                            'Case Study', 'Case Study', _selectedOption1, () {
                           setState(() {
                             _selectedOption1 = 'Case Study';
                           });
                         }),
-                        _buildOption('Literature Review', 'Literature Review', _selectedOption1, () {
+                        _buildOption('Literature Review', 'Literature Review',
+                            _selectedOption1, () {
                           setState(() {
                             _selectedOption1 = 'Literature Review';
                           });
@@ -199,13 +214,17 @@ class _ResearchState extends State<Research> {
                   SizedBox(height: 20),
                   ElevatedButton(
                     onPressed: _isLoading ? null : _generateStory,
-                    child: _isLoading ? Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: CircularProgressIndicator(color: Colors.blue,),
-                    ) : Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Icon(Icons.play_arrow, color: Colors.white),
-                    ),
+                    child: _isLoading
+                        ? Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: CircularProgressIndicator(
+                              color: Colors.blue,
+                            ),
+                          )
+                        : Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Icon(Icons.play_arrow, color: Colors.white),
+                          ),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.blue,
                       shape: RoundedRectangleBorder(

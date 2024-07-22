@@ -162,12 +162,12 @@ class _EcoSortState extends State<EcoSort> {
                 ),
               ),
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.blue, // Background color
+                backgroundColor: Colors.blue,
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8), // Rounded corners
+                  borderRadius: BorderRadius.circular(8),
                 ),
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 20, vertical: 5), // Padding
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                 textStyle: const TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,

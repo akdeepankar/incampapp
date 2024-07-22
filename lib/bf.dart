@@ -17,7 +17,7 @@ class _BfState extends State<Bf> {
   String _selectedOption1 = '';
   String _selectedOption2 = '';
   bool _isLoading = false;
-  String _responseText = ''; // Define _responseText here
+  String _responseText = '';
 
   final TextEditingController prompt = TextEditingController();
   final ImagePicker _imagePicker = ImagePicker();

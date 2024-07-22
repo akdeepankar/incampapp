@@ -47,11 +47,42 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  void _showStarPopup() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Image.asset('images/AI.png'),
+              const SizedBox(height: 10),
+              const Text(
+                'Created with ❤️ in IITM',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('Close'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
-        // Simulate a mobile view size (e.g., 375 x 812 for an iPhone X)
         double simulatedWidth = 375.0;
         double simulatedHeight = 812.0;
 
@@ -73,8 +104,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 centerTitle: true,
                 actions: [
                   IconButton(
-                    icon: const Icon(Icons.notifications),
-                    onPressed: () {},
+                    icon: const Icon(Icons.star),
+                    onPressed: _showStarPopup,
                   ),
                 ],
               ),
@@ -101,7 +132,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     label: 'Litpicks',
                   ),
                   BottomNavigationBarItem(
-                    icon: Icon(Icons.fastfood),
+                    icon: Icon(Icons.generating_tokens),
                     label: 'BF',
                   ),
                 ],

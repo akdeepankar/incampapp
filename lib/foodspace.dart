@@ -8,7 +8,7 @@ class Foodspace extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 1, // Number of tabs
+      length: 1,
       child: Scaffold(
         appBar: AppBar(
           title: PreferredSize(
@@ -32,7 +32,7 @@ class Foodspace extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 10.0),
                         child: Container(
-                          width: 150, // Adjusted width of the tab container
+                          width: 150,
                           decoration: BoxDecoration(
                             color: Colors.grey[200],
                             borderRadius: BorderRadius.circular(10),
@@ -40,7 +40,8 @@ class Foodspace extends StatelessWidget {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Icon(Icons.fastfood, color: Colors.black),
+                              Icon(Icons.generating_tokens,
+                                  color: Colors.black),
                               SizedBox(width: 2),
                               Text('Budget Friendly',
                                   style: TextStyle(color: Colors.black)),
@@ -50,7 +51,7 @@ class Foodspace extends StatelessWidget {
                       ),
                     ],
                   ),
-                  SizedBox(height: 10), // Add padding below the line
+                  SizedBox(height: 10),
                 ],
               ),
             ),

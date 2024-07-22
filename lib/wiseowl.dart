@@ -9,11 +9,10 @@ class WiseOwl extends StatefulWidget {
 }
 
 class _WiseOwlState extends State<WiseOwl> {
-  String _responseText = 'Press the button to generate a story.';
-  final String apiKey =
-      'AIzaSyCA25KPArcjrC0AbT8n8SweiV5ktE_ta0s'; // Replace with your API key
-  int _selectedDuration = 5; // Default duration is 5 minutes
-  bool _isLoading = false; // Loading state
+  String _responseText = 'Press the button to generate Podcast.';
+  final String apiKey = 'AIzaSyCA25KPArcjrC0AbT8n8SweiV5ktE_ta0s';
+  int _selectedDuration = 5;
+  bool _isLoading = false;
   bool _isSpeaking = false;
   bool _isPaused = false;
 
@@ -28,7 +27,7 @@ class _WiseOwlState extends State<WiseOwl> {
     }
 
     setState(() {
-      _isLoading = true; // Start loading
+      _isLoading = true;
     });
 
     try {
@@ -47,7 +46,7 @@ class _WiseOwlState extends State<WiseOwl> {
       });
     } finally {
       setState(() {
-        _isLoading = false; // Stop loading
+        _isLoading = false;
       });
     }
   }
@@ -122,7 +121,7 @@ class _WiseOwlState extends State<WiseOwl> {
             color:
                 _selectedDuration == duration ? Colors.blue : Colors.grey[200],
           ),
-          padding: EdgeInsets.symmetric(vertical: 40, horizontal: 15),
+          padding: EdgeInsets.symmetric(vertical: 30, horizontal: 15),
           child: Text(
             label,
             style: TextStyle(
@@ -140,8 +139,7 @@ class _WiseOwlState extends State<WiseOwl> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        FocusScope.of(context).requestFocus(
-            FocusNode()); // Dismiss the keyboard when screen is touched
+        FocusScope.of(context).requestFocus(FocusNode());
       },
       child: Scaffold(
         body: SingleChildScrollView(
@@ -210,28 +208,6 @@ class _WiseOwlState extends State<WiseOwl> {
                     ],
                   ),
                   SizedBox(height: 20),
-                  Container(
-                    padding: EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.grey),
-                      borderRadius: BorderRadius.circular(5.0),
-                    ),
-                    constraints: BoxConstraints(
-                      maxHeight: 300.0,
-                    ),
-                    child: SingleChildScrollView(
-                      child: Text(
-                        _responseText,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.grey,
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 20),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -263,6 +239,29 @@ class _WiseOwlState extends State<WiseOwl> {
                       ),
                     ],
                   ),
+                  SizedBox(height: 20),
+                  Container(
+                    padding: EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.grey),
+                      borderRadius: BorderRadius.circular(5.0),
+                    ),
+                    constraints: BoxConstraints(
+                      maxHeight: 300.0,
+                    ),
+                    child: SingleChildScrollView(
+                      child: Text(
+                        _responseText,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.grey,
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 20),
                 ],
               ),
             ),

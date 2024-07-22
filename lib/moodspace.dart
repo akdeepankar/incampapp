@@ -8,7 +8,7 @@ class Moodspace extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 1, // Number of tabs
+      length: 1,
       child: Scaffold(
         appBar: AppBar(
           title: PreferredSize(
@@ -32,7 +32,7 @@ class Moodspace extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 10.0),
                         child: Container(
-                          width: 150, // Adjusted width of the tab container
+                          width: 150,
                           decoration: BoxDecoration(
                             color: Colors.grey[200],
                             borderRadius: BorderRadius.circular(10),
@@ -50,7 +50,7 @@ class Moodspace extends StatelessWidget {
                       ),
                     ],
                   ),
-                  SizedBox(height: 10), // Add padding below the line
+                  SizedBox(height: 10),
                 ],
               ),
             ),
