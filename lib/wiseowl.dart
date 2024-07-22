@@ -10,9 +10,10 @@ class WiseOwl extends StatefulWidget {
 
 class _WiseOwlState extends State<WiseOwl> {
   String _responseText = 'Press the button to generate a story.';
-  final String apiKey = 'AIzaSyCA25KPArcjrC0AbT8n8SweiV5ktE_ta0s'; // Replace with your API key  
-  int _selectedDuration = 5; // Default duration is 5 minutes  
-  bool _isLoading = false; // Loading state  
+  final String apiKey =
+      'AIzaSyCA25KPArcjrC0AbT8n8SweiV5ktE_ta0s'; // Replace with your API key
+  int _selectedDuration = 5; // Default duration is 5 minutes
+  bool _isLoading = false; // Loading state
   bool _isSpeaking = false;
   bool _isPaused = false;
 
@@ -32,7 +33,10 @@ class _WiseOwlState extends State<WiseOwl> {
 
     try {
       final model = GenerativeModel(model: 'gemini-1.5-flash', apiKey: apiKey);
-      final content = [Content.text('Generate a $_selectedDuration min topic on ' + _questionController.text)];
+      final content = [
+        Content.text('Generate a $_selectedDuration min topic on ' +
+            _questionController.text)
+      ];
       final response = await model.generateContent(content);
       setState(() {
         _responseText = response.text!;
@@ -115,13 +119,15 @@ class _WiseOwlState extends State<WiseOwl> {
         child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
-            color: _selectedDuration == duration ? Colors.blue : Colors.grey[200],
+            color:
+                _selectedDuration == duration ? Colors.blue : Colors.grey[200],
           ),
           padding: EdgeInsets.symmetric(vertical: 40, horizontal: 15),
           child: Text(
             label,
             style: TextStyle(
-              color: _selectedDuration == duration ? Colors.white : Colors.black,
+              color:
+                  _selectedDuration == duration ? Colors.white : Colors.black,
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -134,7 +140,8 @@ class _WiseOwlState extends State<WiseOwl> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        FocusScope.of(context).requestFocus(FocusNode()); // Dismiss the keyboard when screen is touched
+        FocusScope.of(context).requestFocus(
+            FocusNode()); // Dismiss the keyboard when screen is touched
       },
       child: Scaffold(
         body: SingleChildScrollView(
@@ -170,7 +177,8 @@ class _WiseOwlState extends State<WiseOwl> {
                             ),
                             filled: true,
                             fillColor: Colors.grey[200],
-                            contentPadding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+                            contentPadding: EdgeInsets.symmetric(
+                                horizontal: 16.0, vertical: 12.0),
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10.0),
                               borderSide: BorderSide(color: Colors.blue),
@@ -189,7 +197,8 @@ class _WiseOwlState extends State<WiseOwl> {
                         child: ElevatedButton(
                           onPressed: _isLoading ? null : _generateStory,
                           child: _isLoading
-                              ? SpinKitThreeBounce(color: Colors.black, size: 20)
+                              ? SpinKitThreeBounce(
+                                  color: Colors.black, size: 20)
                               : Icon(Icons.play_arrow, color: Colors.blue),
                           style: ElevatedButton.styleFrom(
                             shape: RoundedRectangleBorder(
@@ -227,9 +236,13 @@ class _WiseOwlState extends State<WiseOwl> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       ElevatedButton(
-                        onPressed: _isSpeaking ? (_isPaused ? _resumeSpeech : _pauseSpeech) : _speakText,
+                        onPressed: _isSpeaking
+                            ? (_isPaused ? _resumeSpeech : _pauseSpeech)
+                            : _speakText,
                         child: Icon(
-                          _isSpeaking ? (_isPaused ? Icons.play_arrow : Icons.pause) : Icons.volume_up,
+                          _isSpeaking
+                              ? (_isPaused ? Icons.play_arrow : Icons.pause)
+                              : Icons.volume_up,
                           color: Colors.blue,
                         ),
                         style: ElevatedButton.styleFrom(
