@@ -1,5 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -210,16 +211,17 @@ class _ResearchState extends State<Research> {
                       ],
                     ),
                   ),
-                  SizedBox(height: 10),
                   SizedBox(height: 20),
                   ElevatedButton(
                     onPressed: _isLoading ? null : _generateStory,
                     child: _isLoading
                         ? Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child: CircularProgressIndicator(
+                            child: Center(
+                                child: SpinKitThreeBounce(
                               color: Colors.blue,
-                            ),
+                              size: 20,
+                            )),
                           )
                         : Padding(
                             padding: const EdgeInsets.all(8.0),

@@ -177,7 +177,7 @@ class _EcoSortState extends State<EcoSort> {
             const SizedBox(height: 30),
             scanning
                 ? const Padding(
-                    padding: EdgeInsets.only(top: 60),
+                    padding: EdgeInsets.only(top: 10),
                     child: Center(
                         child: SpinKitThreeBounce(
                       color: Colors.black,

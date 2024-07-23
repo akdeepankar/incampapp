@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
 import 'dart:js' as js;
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class WiseOwl extends StatefulWidget {
   @override
@@ -17,6 +19,7 @@ class _WiseOwlState extends State<WiseOwl> {
   bool _isPaused = false;
 
   final TextEditingController _questionController = TextEditingController();
+  final TextEditingController _phoneController = TextEditingController();
 
   Future<void> _generateStory() async {
     if (apiKey.isEmpty) {
@@ -33,8 +36,8 @@ class _WiseOwlState extends State<WiseOwl> {
     try {
       final model = GenerativeModel(model: 'gemini-1.5-flash', apiKey: apiKey);
       final content = [
-        Content.text('Generate a $_selectedDuration min topic on ' +
-            _questionController.text)
+        Content.text(
+            'Generate a $_selectedDuration-minute story-like informative script on ${_questionController.text}. The script should be engaging, clear, and devoid of any special characters or formatting marks. It will be used for a text-to-speech application, so it should be written in a way that is easy to understand and listen to, as if you are telling a story to the audience.')
       ];
       final response = await model.generateContent(content);
       setState(() {
@@ -100,9 +103,111 @@ class _WiseOwlState extends State<WiseOwl> {
     });
   }
 
+  Future<void> _sendSMS(String phoneNumber, String message) async {
+    final String accountSid = 'AC7b146d159c2bbdc9b093c13651e37775';
+    final String authToken = 'd7308404d41be692ecdb1a3c4e3e5193';
+    final String fromPhoneNumber = '+12513561721';
+
+    final String url =
+        'https://api.twilio.com/2010-04-01/Accounts/$accountSid/Messages.json';
+
+    final response = await http.post(
+      Uri.parse(url),
+      headers: {
+        'Authorization':
+            'Basic ' + base64Encode(utf8.encode('$accountSid:$authToken')),
+      },
+      body: {
+        'To': phoneNumber,
+        'From': fromPhoneNumber,
+        'Body': message,
+      },
+    );
+
+    if (response.statusCode == 201) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Message sent successfully!')),
+      );
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Failed to send message: ${response.body}')),
+      );
+    }
+  }
+
+  void _shareSpeech() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Share Speech'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextField(
+                controller: _phoneController,
+                decoration: InputDecoration(
+                  labelText: 'Phone Number',
+                  hintText: 'Enter phone number',
+                  border: OutlineInputBorder(),
+                ),
+                keyboardType: TextInputType.phone,
+              ),
+            ],
+          ),
+          actions: [
+            TextButton(
+              child: Text('Cancel'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: Text('Send'),
+              onPressed: () async {
+                final phoneNumber = _phoneController.text;
+                if (phoneNumber.isNotEmpty) {
+                  Navigator.of(context).pop();
+                  final confirm = await showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: Text('Confirm'),
+                        content: Text(
+                            'Do you want to send the generated speech to $phoneNumber?'),
+                        actions: [
+                          TextButton(
+                            child: Text('No'),
+                            onPressed: () {
+                              Navigator.of(context).pop(false);
+                            },
+                          ),
+                          TextButton(
+                            child: Text('Yes'),
+                            onPressed: () {
+                              Navigator.of(context).pop(true);
+                            },
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                  if (confirm == true) {
+                    await _sendSMS(phoneNumber, _responseText);
+                  }
+                }
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   void dispose() {
     _questionController.dispose();
+    _phoneController.dispose();
     super.dispose();
   }
 
@@ -231,6 +336,16 @@ class _WiseOwlState extends State<WiseOwl> {
                       ElevatedButton(
                         onPressed: _stopSpeech,
                         child: Icon(Icons.stop, color: Colors.red),
+                        style: ElevatedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                        ),
+                      ),
+                      SizedBox(width: 10),
+                      ElevatedButton(
+                        onPressed: _shareSpeech,
+                        child: Icon(Icons.share, color: Colors.blue),
                         style: ElevatedButton.styleFrom(
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10.0),

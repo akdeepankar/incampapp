@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
 
 class Book extends StatefulWidget {
@@ -191,9 +192,11 @@ class _BookState extends State<Book> {
                     child: _isLoading
                         ? Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child: CircularProgressIndicator(
+                            child: Center(
+                                child: SpinKitThreeBounce(
                               color: Colors.blue,
-                            ),
+                              size: 20,
+                            )),
                           )
                         : Padding(
                             padding: const EdgeInsets.all(8.0),
